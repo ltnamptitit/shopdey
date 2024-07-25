@@ -4,19 +4,18 @@ export interface AuthState {
 	username: null | string,
 	userId: null | string,
 	roleId: null | string,
-	accessToken: string | null,
-	refreshToken: string | null,
-	tokenId: null | string
+	accessToken: string,
+	refreshToken: string,
 	isLogged: boolean
 }
 
 const initialState: AuthState = {
-	username: null,
+	username: "Nam",
 	userId: null,
 	roleId: null,
-	refreshToken: null,
-	accessToken: null,
-	tokenId: null,
+	refreshToken: "",
+	accessToken: "",
+	// isLogged: true
 	isLogged: false
 };
 
@@ -27,14 +26,13 @@ export const authSlice = createSlice({
 		setLogged: (state: AuthState, action: PayloadAction<boolean>) => {
 			state.isLogged = action.payload;
 		},
-		setToken: (state: AuthState, action: PayloadAction<[string, string, string]>) => {
-			const [accessToken, refreshToken, tokenId] = action.payload
+		setToken: (state: AuthState, action: PayloadAction<[string, string]>) => {
+			const [accessToken, refreshToken] = action.payload
 			state.accessToken = accessToken
 			state.refreshToken = refreshToken
-			state.tokenId = tokenId
 		},
 		setUserInfo: (state: AuthState, action: PayloadAction<[string, string, string]>) =>{
-			const [username, userId, roleId] = action.payload
+			const [userId, username, roleId] = action.payload
 			state.username = username
 			state.userId = userId
 			state.roleId = roleId
@@ -43,9 +41,8 @@ export const authSlice = createSlice({
 			state.username= null,
 			state.userId= null,
 			state.roleId= null,
-			state.refreshToken= null,
-			state.accessToken= null,
-			state.tokenId= null,
+			state.refreshToken= "",
+			state.accessToken= "",
 			state.isLogged= false
 		},
 	},

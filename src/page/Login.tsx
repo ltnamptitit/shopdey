@@ -1,8 +1,8 @@
 import { Button, Form, Input } from "antd";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { setLogged } from "../slice/authSlice";
-import { store } from "../store";
+import { setLogged, setToken, setUserInfo } from "../slice/authSlice";
+import { store, useAppDispatch } from "../store";
 
 type InputType = {
 	email: string;
@@ -24,11 +24,26 @@ export const validateMessages = {
 function Login() {
 	const { handleLogin } = useAuth();
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const onFinish = async (values: InputType) => {
 		const response = await handleLogin(values.email, values.password);
-		console.log(response)
+		// console.log(response)
 		if (response.status === 200) {
+			console.log(response.data.accessToken);
 			store.dispatch(setLogged(true));
+			dispatch(
+				setToken([
+					response?.data?.accessToken,
+					response.data?.refreshToken,
+				])
+			);
+			dispatch(
+				setUserInfo([
+					response.data.data.userID,
+					response.data.data.username,
+					response.data.data.fullname,
+				])
+			);
 			navigate("/");
 		}
 	};

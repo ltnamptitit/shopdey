@@ -1,9 +1,9 @@
-import axios from "axios";
+import { axiosInstance } from "./apiConfig";
 
 export const login = async (email: string, password: string) => {
 	try {
-		const response = await axios.post(
-			"http://localhost:8080/hnshop/api/auth/login",
+		const response = await axiosInstance.post(
+			"/auth/login",
 			{ username: email, password: password }
 		);
 		return response;
@@ -18,8 +18,8 @@ export const signup = async (
 	fullname: string
 ) => {
 	try {
-		const response = await axios.post(
-			"http://localhost:8080/hnshop/api/auth/signup",
+		const response = await axiosInstance.post(
+			"/auth/signUp",
 			{
 				username: email,
 				password: password,
@@ -31,3 +31,18 @@ export const signup = async (
 		throw error;
 	}
 };
+
+export const logout = async (accessToken: string, refreshToken: string) => {
+	try{
+		const response = await axiosInstance.post(
+			"/auth/logout",
+			{
+				accessToken: accessToken,
+				refreshToken: refreshToken
+			}
+		)
+		return response
+	} catch (e){
+		console.log(e)
+	}
+}

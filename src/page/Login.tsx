@@ -27,14 +27,13 @@ function Login() {
 	const dispatch = useAppDispatch();
 	const onFinish = async (values: InputType) => {
 		const response = await handleLogin(values.email, values.password);
-		// console.log(response)
+		console.log(response.data)
 		if (response.status === 200) {
-			console.log(response.data.accessToken);
 			store.dispatch(setLogged(true));
 			dispatch(
 				setToken([
-					response?.data?.accessToken,
-					response.data?.refreshToken,
+					response.data.accessToken,
+					response.data.refreshToken,
 				])
 			);
 			dispatch(

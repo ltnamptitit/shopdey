@@ -1,66 +1,80 @@
-import Search from "antd/es/input/Search";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ShoppingOutlined, UserOutlined } from "@ant-design/icons";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { Button } from "antd";
+import { Affix, Button } from "antd";
+import { clearState } from "../slice/authSlice";
+import { store } from "../store";
 
 function Header() {
-	const isLogged = useSelector((state: RootState) => state.auth.isLogged);
-	// const fullname = useSelector((state: RootState) => state.auth.username);
+	const location = useLocation();
+	const isLogged = store.getState().auth.isLogged;
 	const [inputSearch, setInputSearch] = useState<string>("");
 	const navigate = useNavigate();
-	const search = () => {
-		console.log(inputSearch);
+	// const search = () => {
+	// 	console.log(inputSearch);
+	// };
+	const handleLogout = () => {
+		store.dispatch(clearState());
 	};
 	return (
-		<div className="w-full flex flex-row justify-between py-6 border sticky bg-white">
-			<div
-				className="pl-4 flex justify-center items-center"
-				onClick={() => navigate("/")}
-			>
-				<span>Logo</span>
-			</div>
-			{/* <div className="basis-auto"> */}
-			<Search
-				className="w-1/3"
-				value={inputSearch}
-				onChange={(e) => setInputSearch(e.target.value)}
-				onSearch={() => search()}
-			/>
-			{/* </div> */}
-			<div className="basis-auto flex flex-row items-center pr-4 cursor-pointer">
-				{!isLogged ? (
-					<>
-						<Button
-							className="mr-2"
-							type="primary"
-							onClick={() => {
-								navigate("/signup");
-							}}
-						>
-							Sign up
-						</Button>
-						<Button
-							type="primary"
-							onClick={() => navigate("/login")}
-						>
-							Login
-						</Button>
-					</>
-				) : (
-					<>
-						<div className="-2">
-							<ShoppingOutlined className="text-3xl" />
+		location.pathname !== "/login" &&
+		location.pathname !== "/signup" && (
+			<Affix>
+				<div className="w-full mx-auto flex justify-center py-6 sticky bg-gray-900 text-white">
+					<div className="min-w-full max-w-screen-xl sm:px-6 lg:px-8">
+						<div className="w-full flex flex-row justify-between">
+							<div
+								className="flex justify-center items-center"
+								onClick={() => navigate("/")}
+							>
+								<span>Logo</span>
+							</div>
+							{/* <div className="basis-auto"> */}
+							{/* <Search
+								className="w-1/3"
+								value={inputSearch}
+								onChange={(e) => setInputSearch(e.target.value)}
+								onSearch={() => search()}
+								/> */}
+							{/* </div> */}
+							<div className="basis-auto flex flex-row items-center pr-4 cursor-pointer">
+								{!isLogged ? (
+									<>
+										<Button
+											className="mr-2"
+											type="primary"
+											onClick={() => {
+												navigate("/signup");
+											}}
+										>
+											Sign up
+										</Button>
+										<Button
+											type="primary"
+											onClick={() => navigate("/login")}
+										>
+											Login
+										</Button>
+									</>
+								) : (
+									<>
+										<Button onClick={() => handleLogout()}>
+											Log out
+										</Button>
+										<div className="mr-2">
+											<ShoppingOutlined className="text-3xl" />
+										</div>
+										<div>
+											<UserOutlined className="text-3xl" />
+										</div>
+									</>
+								)}
+							</div>
 						</div>
-						<div>
-							<UserOutlined className="text-3xl" />
-						</div>
-					</>
-				)}
-			</div>
-		</div>
+					</div>
+				</div>
+			</Affix>
+		)
 	);
 }
 

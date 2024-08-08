@@ -1,5 +1,4 @@
-import { Affix, Button, Carousel } from "antd";
-import Header from "../components/Header";
+import { Carousel } from "antd";
 import { RootState, useAppDispatch } from "../store";
 import { clearState } from "../slice/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +20,7 @@ function Home() {
 		navigate("/");
 	};
 	return (
-		<div className="w-full relative">
-			<Affix>
-				<Header />
-			</Affix>
+		<>
 			<div className="flex flex-col w-full md:max-w-screen-xl mx-auto px-4">
 				<Carousel arrows autoplay className="border my-10">
 					<div className="bg-orange-300 h-40">
@@ -41,12 +37,12 @@ function Home() {
 					</div>
 				</Carousel>
 				<Category name="Phone" />
-				<Category name="Watch" />
+				{/* <Category name="Watch" /> */}
 				{/* <Button type="primary" onClick={() => logout()}>
 					Log out
 				</Button> */}
 			</div>
-		</div>
+		</>
 	);
 }
 

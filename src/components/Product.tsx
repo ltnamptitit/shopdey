@@ -1,19 +1,24 @@
+import { Card } from "antd";
 import productImage from "../image/product-item1.jpg"; // Adjust the path if needed
+import { Link } from "react-router-dom";
 
-const Product: React.FC<{ idItem: string }> = (props) => {
+const Product: React.FC<{ ID: string; price: string }> = (props) => {
 	return (
-		<div className="group flex flex-col relative w-full mx-auto">
-			<div>
-				<img src={productImage} />
+		<Card
+			hoverable
+			cover={<img className="p-4" src={productImage} />}
+			className="group"
+		>
+			<div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+				<Link to={`/product/${props.ID}`}>
+					<button className="text-sm font-medium h-11 rounded-md px-8 bg-slate-700 hover:bg-slate-600 text-white">
+						Buy Now
+					</button>
+				</Link>
 			</div>
-			<div className="flex flex-row justify-between">
-				<span className="uppercase">iphone X</span>
-				<span>1000000</span>
-			</div>
-			<button className="w-4/5 h-[50px] flex justify-center bg-slate-50 opacity-90 text-center absolute bottom-[20px] invisible uppercase group-hover:visible">
-				add to card
-			</button>
-		</div>
+			<div>Nam</div>
+			<div>{props.price}</div>
+		</Card>
 	);
 };
 

@@ -6,7 +6,7 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getProduct } from "../api/productAPI";
 import { v4 as uuidv4 } from "uuid";
-import { ProductRoot, ProductTrans } from "../interface/Interfce";
+import { ProductRoot } from "../interface/Interfce";
 import Product from "./Product";
 
 const Category: React.FC<{ name: string }> = (props) => {

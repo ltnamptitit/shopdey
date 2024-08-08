@@ -20,9 +20,6 @@ function Home() {
   };
   return (
     <div className="w-full relative">
-      <Affix>
-        <Header />
-      </Affix>
       <div className="flex flex-col w-full md:max-w-screen-xl mx-auto px-4">
         <Carousel arrows autoplay className="border my-10">
           <div className="bg-orange-300 h-40">

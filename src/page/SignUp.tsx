@@ -74,17 +74,16 @@ function SignUp() {
 								},
 							}),
 						]}
-						className="mb-11"
-					>
+						>
 						<Input.Password />
 					</Form.Item>
 					<Form.Item
 						name="fullname"
 						label="Fullname"
-					>
+						>
 						<Input placeholder="Enter your fullname" />
 					</Form.Item>
-					<Form.Item className="flex justify-center">
+					<Form.Item className="flex justify-center mb-11">
 						<Button type="primary" htmlType="submit">
 							Sign Up
 						</Button>
